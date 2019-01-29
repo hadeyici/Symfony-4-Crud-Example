@@ -15,6 +15,7 @@ use App\Service\ArticleService as ServiceArticle;
 
 
 class ArticleController extends AbstractController {
+
     /**
      * @Route("/article", name="article_list")
      * @Method ({"GET"})
@@ -22,9 +23,7 @@ class ArticleController extends AbstractController {
     public function article(){
 
         $article  = new ServiceArticle($this->getDoctrine()->getManager(),Article::class);
-
         $articles = $article->getAllArticles();
-
         return $this->render('articles/index.html.twig', array
         ('articles' => $articles));
     }
@@ -69,8 +68,8 @@ class ArticleController extends AbstractController {
      */
 
     public function show($id){
-        $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
-
+        $article  = new ServiceArticle($this->getDoctrine()->getManager(),Article::class);
+        $article = $article->getArticle($id);
         return $this->render('articles/show.html.twig', array('article' =>$article));
 
     }
@@ -98,8 +97,8 @@ class ArticleController extends AbstractController {
 
         if($form->isSubmitted() && $form->isValid()){
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->flush();
+            $article  = new ServiceArticle($this->getDoctrine()->getManager(),Article::class);
+            $article->addArticle();
 
             return $this->redirectToRoute('article_list');
         }
@@ -115,11 +114,9 @@ class ArticleController extends AbstractController {
      */
 
     public function delete(Request $request, $id){
-        $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
 
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->remove($article);
-        $entityManager->flush();
+        $article  = new ServiceArticle($this->getDoctrine()->getManager(),Article::class);
+        $article->deleteArticle($id);
 
         return $this->redirectToRoute('article_list');
     }

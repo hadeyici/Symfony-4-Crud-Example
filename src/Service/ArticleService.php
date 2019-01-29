@@ -19,9 +19,24 @@ class ArticleService extends AbstractService
         return $this->model;
     }
 
+    public function getArticle($article_id)
+    {
+        return $this->find($article_id);
+    }
+
     public function getAllArticles()
     {
-        return $this->findAll();  
+        return $this->findAll();
+    }
+
+    public function addArticle()
+    {
+        return $this->save();
+    }
+
+    public function deleteArticle($id)
+    {   
+        return $this->delete($this->find($id));
     }
 
 

@@ -26,7 +26,7 @@ abstract class AbstractService
      * @param EntityManager $em
      * @param $entityName
      */
-    public function __construct(EntityManager $em, $entityName)
+    protected function __construct(EntityManager $em, $entityName)
     {
         $this->em = $em;
         $this->model = $em->getRepository($entityName);
@@ -35,7 +35,7 @@ abstract class AbstractService
     /**
      * @return array
      */
-    public function findAll()
+    protected function findAll()
     {
         return $this->model->findAll();
     }
@@ -47,7 +47,7 @@ abstract class AbstractService
      * @param null $offset
      * @return array
      */
-    public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+    protected function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
     {
         return $this->model->findBy($criteria, $orderBy, $limit, $offset);
     }
@@ -56,7 +56,7 @@ abstract class AbstractService
      * @param Criteria $criteria
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function matching(Criteria $criteria)
+    protected function matching(Criteria $criteria)
     {
         return $this->model->matching($criteria);
     }
@@ -67,7 +67,7 @@ abstract class AbstractService
      * @param null $lockVersion
      * @return null|object
      */
-    public function find($id, $lockMode = LockMode::NONE, $lockVersion = null)
+    protected function find($id, $lockMode = LockMode::NONE, $lockVersion = null)
     {
         return $this->model->find($id, $lockMode, $lockVersion);
     }
@@ -77,29 +77,29 @@ abstract class AbstractService
      * @param array $orderBy
      * @return null|object
      */
-    public function findOneBy(array $criteria, array $orderBy = null)
+    protected function findOneBy(array $criteria, array $orderBy = null)
     {
         return $this->model->findOneBy($criteria, $orderBy);
     }
 
-    public function getReferenceObject($id)
+    protected function getReferenceObject($id)
     {
         return $this->em->getReference($this->model->getClassName(), $id);
     }
 
-    public function save($object)
+    protected function save($object)
     {
         $this->em->persist($object);
         $this->em->flush();
     }
 
-    public function delete($object)
+    protected function delete($object)
     {
         $this->em->remove($object);
         $this->em->flush();
     }
 
-    public function entityManager()
+    protected function entityManager()
     {
         return $this->em;
     }
