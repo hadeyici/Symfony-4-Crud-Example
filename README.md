@@ -1,5 +1,7 @@
 # Symfony-4-Crud-Example
 
+![1_5Ho8-Jz-vmqFQKZY5W_K9A](https://user-images.githubusercontent.com/18482866/109547006-f1e9f400-7adb-11eb-88ac-afbcbacf0674.gif)
+
 ### 1) Installation
 
 Install the dependencies and start the server.
